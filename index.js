@@ -1,28 +1,37 @@
+let playerScore = 0;
+let computerScore = 0;
+
 // Computer Choice
 function computerPlay() {
-  let compOptions = ["rock", "paper", "scissors"];
-  let compChoice = compOptions[Math.floor(Math.random() * compOptions.length)];
-  return compChoice;
+  let choices = ["rock", "paper", "scissors"];
+  let computerChoice = choices[Math.floor(Math.random() * choices.length)];
+  return computerChoice;
 }
 
-// Single round
-function playRound(playerSelection, computerSelection) {
-  let result;
-  if (playerSelection === computerSelection) {
-    result = "It's a draw!";
-  } else if (
+// Play
+function playRound() {
+  let playerSelection = prompt("Rock, Paper or Scissors?").toLowerCase();
+  let computerSelection = computerPlay();
+  let result = "";
+
+  if (
     (playerSelection === "rock" && computerSelection === "scissors") ||
     (playerSelection === "paper" && computerSelection === "rock") ||
     (playerSelection === "scissors" && computerSelection === "paper")
   ) {
-    result = "You won!";
+    playerScore++;
+    result = `You win! ${playerSelection} beats ${computerSelection}. Player score: ${playerScore} and Computer score: ${computerScore}`;
+
+    if (playerScore === 5) {
+      result += "You won the game";
+    }
+  } else if (playerSelection === computerSelection) {
+    result = `It's a draw! You both picked ${playerSelection}. Player score: ${playerScore} and Computer score: ${computerScore}`;
   } else {
-    result = "You lost";
+    computerScore++;
+    result = `You lose! ${computerSelection} beats ${playerSelection}. Player score: ${playerScore} and Computer score: ${computerScore}`;
   }
   console.log(result);
 }
 
-let playerSelection = prompt("Rock, Paper, or Scissors?").toLowerCase();
-let computerSelection = computerPlay();
-console.log(computerSelection);
-console.log(playRound(playerSelection, computerSelection));
+playRound();
