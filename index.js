@@ -1,5 +1,6 @@
 let playerScore = 0;
 let computerScore = 0;
+const buttons = document.querySelectorAll("input");
 
 // Computer Choice
 function computerPlay() {
@@ -9,8 +10,8 @@ function computerPlay() {
 }
 
 // Play
-function playRound() {
-  let playerSelection = prompt("Rock, Paper or Scissors?").toLowerCase();
+function playRound(playerSelection) {
+  // let playerSelection = prompt("Rock, Paper or Scissors?").toLowerCase();
   let computerSelection = computerPlay();
   let result = "";
 
@@ -30,8 +31,18 @@ function playRound() {
   } else {
     computerScore++;
     result = `You lose! ${computerSelection} beats ${playerSelection}. Player score: ${playerScore} and Computer score: ${computerScore}`;
+
+    if (computerScore === 5) {
+      result += "You lost the game";
+    }
   }
-  console.log(result);
+
+  document.getElementById("result").innerHTML = result;
+  return result;
 }
 
-playRound();
+buttons.forEach((button) => {
+  button.addEventListener("click", function () {
+    playRound(button.value);
+  });
+});
